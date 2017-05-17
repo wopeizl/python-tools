@@ -18,15 +18,15 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='deep.proto',
-  package='org.libcppa',
+  package='deep_server',
   syntax='proto2',
-  serialized_pb=_b('\n\ndeep.proto\x12\x0borg.libcppa\">\n\ninput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x14.org.libcppa.input_m\"@\n\x0boutput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12#\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x15.org.libcppa.output_m\"\xc3\x01\n\x07input_m\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x36\n\x06method\x18\x02 \x01(\x0e\x32\x1f.org.libcppa.input_m.methodType:\x05\x43\x41\x46\x46\x45\x12.\n\x05\x64\x61taT\x18\x03 \x01(\x0e\x32\x15.org.libcppa.dataType:\x08\x43V_IMAGE\x12\x0f\n\x07imgdata\x18\x04 \x01(\x0c\".\n\nmethodType\x12\x0b\n\x07\x43V_FLIP\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\x08\n\x04YOLO\x10\x02\"\x89\x01\n\x08output_m\x12#\n\x06status\x18\x01 \x01(\x0e\x32\x13.org.libcppa.Status\x12\x0b\n\x03msg\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12)\n\x05\x64\x61taT\x18\x04 \x01(\x0e\x32\x15.org.libcppa.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x05 \x01(\x0c*!\n\x08\x64\x61taType\x12\x07\n\x03PNG\x10\x00\x12\x0c\n\x08\x43V_IMAGE\x10\x01*e\n\x06Status\x12\x06\n\x02OK\x10\x00\x12\x0b\n\x07INVALID\x10\x01\x12\x10\n\x0cWRONG_METHOD\x10\x02\x12\x12\n\x0eWRONG_DATATYPE\x10\x03\x12\x10\n\x0cTOO_BIG_DATA\x10\x04\x12\x0e\n\nSEVER_FAIL\x10\x05')
+  serialized_pb=_b('\n\ndeep.proto\x12\x0b\x64\x65\x65p_server\">\n\ninput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x14.deep_server.input_m\"@\n\x0boutput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12#\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x15.deep_server.output_m\"\x91\x02\n\x07input_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x36\n\x06method\x18\x03 \x01(\x0e\x32\x1f.deep_server.input_m.methodType:\x05\x43\x41\x46\x46\x45\x12.\n\x05\x64\x61taT\x18\x04 \x01(\x0e\x32\x15.deep_server.dataType:\x08\x43V_IMAGE\x12-\n\tres_dataT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t\".\n\nmethodType\x12\x0b\n\x07\x43V_FLIP\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\x08\n\x04YOLO\x10\x02\"\xa8\x01\n\x08output_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12#\n\x06status\x18\x02 \x01(\x0e\x32\x13.deep_server.Status\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\x0f\n\x07version\x18\x04 \x01(\t\x12)\n\x05\x64\x61taT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t*}\n\x08\x64\x61taType\x12\x07\n\x03PNG\x10\x00\x12\x0c\n\x08\x43V_IMAGE\x10\x01\x12\x0f\n\x0b\x43V_POST_PNG\x10\x03\x12\x11\n\rCV_POST_IMAGE\x10\x04\x12\x10\n\x0c\x46RCNN_RESULT\x10\x05\x12\x0f\n\x0bYOLO_RESULT\x10\x06\x12\x13\n\x0fINVALID_OUTDATA\x10\x07*e\n\x06Status\x12\x06\n\x02OK\x10\x00\x12\x0b\n\x07INVALID\x10\x01\x12\x10\n\x0cWRONG_METHOD\x10\x02\x12\x12\n\x0eWRONG_DATATYPE\x10\x03\x12\x10\n\x0cTOO_BIG_DATA\x10\x04\x12\x0e\n\nSEVER_FAIL\x10\x05')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _DATATYPE = _descriptor.EnumDescriptor(
   name='dataType',
-  full_name='org.libcppa.dataType',
+  full_name='deep_server.dataType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -38,18 +38,38 @@ _DATATYPE = _descriptor.EnumDescriptor(
       name='CV_IMAGE', index=1, number=1,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CV_POST_PNG', index=2, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CV_POST_IMAGE', index=3, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FRCNN_RESULT', index=4, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='YOLO_RESULT', index=5, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='INVALID_OUTDATA', index=6, number=7,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=495,
-  serialized_end=528,
+  serialized_start=604,
+  serialized_end=729,
 )
 _sym_db.RegisterEnumDescriptor(_DATATYPE)
 
 dataType = enum_type_wrapper.EnumTypeWrapper(_DATATYPE)
 _STATUS = _descriptor.EnumDescriptor(
   name='Status',
-  full_name='org.libcppa.Status',
+  full_name='deep_server.Status',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -80,14 +100,19 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=530,
-  serialized_end=631,
+  serialized_start=731,
+  serialized_end=832,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
 Status = enum_type_wrapper.EnumTypeWrapper(_STATUS)
 PNG = 0
 CV_IMAGE = 1
+CV_POST_PNG = 3
+CV_POST_IMAGE = 4
+FRCNN_RESULT = 5
+YOLO_RESULT = 6
+INVALID_OUTDATA = 7
 OK = 0
 INVALID = 1
 WRONG_METHOD = 2
@@ -98,7 +123,7 @@ SEVER_FAIL = 5
 
 _INPUT_M_METHODTYPE = _descriptor.EnumDescriptor(
   name='methodType',
-  full_name='org.libcppa.input_m.methodType',
+  full_name='deep_server.input_m.methodType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -117,28 +142,28 @@ _INPUT_M_METHODTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=307,
-  serialized_end=353,
+  serialized_start=385,
+  serialized_end=431,
 )
 _sym_db.RegisterEnumDescriptor(_INPUT_M_METHODTYPE)
 
 
 _INPUT_PACK = _descriptor.Descriptor(
   name='input_pack',
-  full_name='org.libcppa.input_pack',
+  full_name='deep_server.input_pack',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='size', full_name='org.libcppa.input_pack.size', index=0,
+      name='size', full_name='deep_server.input_pack.size', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='data', full_name='org.libcppa.input_pack.data', index=1,
+      name='data', full_name='deep_server.input_pack.data', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -163,20 +188,20 @@ _INPUT_PACK = _descriptor.Descriptor(
 
 _OUTPUT_PACK = _descriptor.Descriptor(
   name='output_pack',
-  full_name='org.libcppa.output_pack',
+  full_name='deep_server.output_pack',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='size', full_name='org.libcppa.output_pack.size', index=0,
+      name='size', full_name='deep_server.output_pack.size', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='data', full_name='org.libcppa.output_pack.data', index=1,
+      name='data', full_name='deep_server.output_pack.data', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -201,36 +226,57 @@ _OUTPUT_PACK = _descriptor.Descriptor(
 
 _INPUT_M = _descriptor.Descriptor(
   name='input_m',
-  full_name='org.libcppa.input_m',
+  full_name='deep_server.input_m',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='version', full_name='org.libcppa.input_m.version', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='cid', full_name='deep_server.input_m.cid', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='version', full_name='deep_server.input_m.version', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='method', full_name='org.libcppa.input_m.method', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=True, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='dataT', full_name='org.libcppa.input_m.dataT', index=2,
+      name='method', full_name='deep_server.input_m.method', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=True, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='imgdata', full_name='org.libcppa.input_m.imgdata', index=3,
-      number=4, type=12, cpp_type=9, label=1,
+      name='dataT', full_name='deep_server.input_m.dataT', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=True, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='res_dataT', full_name='deep_server.input_m.res_dataT', index=4,
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=True, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='imgdata', full_name='deep_server.input_m.imgdata', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='callback', full_name='deep_server.input_m.callback', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -248,49 +294,63 @@ _INPUT_M = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=158,
-  serialized_end=353,
+  serialized_end=431,
 )
 
 
 _OUTPUT_M = _descriptor.Descriptor(
   name='output_m',
-  full_name='org.libcppa.output_m',
+  full_name='deep_server.output_m',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='status', full_name='org.libcppa.output_m.status', index=0,
-      number=1, type=14, cpp_type=8, label=1,
+      name='cid', full_name='deep_server.output_m.cid', index=0,
+      number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='msg', full_name='org.libcppa.output_m.msg', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='status', full_name='deep_server.output_m.status', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='version', full_name='org.libcppa.output_m.version', index=2,
+      name='msg', full_name='deep_server.output_m.msg', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dataT', full_name='org.libcppa.output_m.dataT', index=3,
-      number=4, type=14, cpp_type=8, label=1,
+      name='version', full_name='deep_server.output_m.version', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='dataT', full_name='deep_server.output_m.dataT', index=4,
+      number=5, type=14, cpp_type=8, label=1,
       has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='imgdata', full_name='org.libcppa.output_m.imgdata', index=4,
-      number=5, type=12, cpp_type=9, label=1,
+      name='imgdata', full_name='deep_server.output_m.imgdata', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='callback', full_name='deep_server.output_m.callback', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -306,14 +366,15 @@ _OUTPUT_M = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=356,
-  serialized_end=493,
+  serialized_start=434,
+  serialized_end=602,
 )
 
 _INPUT_PACK.fields_by_name['data'].message_type = _INPUT_M
 _OUTPUT_PACK.fields_by_name['data'].message_type = _OUTPUT_M
 _INPUT_M.fields_by_name['method'].enum_type = _INPUT_M_METHODTYPE
 _INPUT_M.fields_by_name['dataT'].enum_type = _DATATYPE
+_INPUT_M.fields_by_name['res_dataT'].enum_type = _DATATYPE
 _INPUT_M_METHODTYPE.containing_type = _INPUT_M
 _OUTPUT_M.fields_by_name['status'].enum_type = _STATUS
 _OUTPUT_M.fields_by_name['dataT'].enum_type = _DATATYPE
@@ -327,28 +388,28 @@ DESCRIPTOR.enum_types_by_name['Status'] = _STATUS
 input_pack = _reflection.GeneratedProtocolMessageType('input_pack', (_message.Message,), dict(
   DESCRIPTOR = _INPUT_PACK,
   __module__ = 'deep_pb2'
-  # @@protoc_insertion_point(class_scope:org.libcppa.input_pack)
+  # @@protoc_insertion_point(class_scope:deep_server.input_pack)
   ))
 _sym_db.RegisterMessage(input_pack)
 
 output_pack = _reflection.GeneratedProtocolMessageType('output_pack', (_message.Message,), dict(
   DESCRIPTOR = _OUTPUT_PACK,
   __module__ = 'deep_pb2'
-  # @@protoc_insertion_point(class_scope:org.libcppa.output_pack)
+  # @@protoc_insertion_point(class_scope:deep_server.output_pack)
   ))
 _sym_db.RegisterMessage(output_pack)
 
 input_m = _reflection.GeneratedProtocolMessageType('input_m', (_message.Message,), dict(
   DESCRIPTOR = _INPUT_M,
   __module__ = 'deep_pb2'
-  # @@protoc_insertion_point(class_scope:org.libcppa.input_m)
+  # @@protoc_insertion_point(class_scope:deep_server.input_m)
   ))
 _sym_db.RegisterMessage(input_m)
 
 output_m = _reflection.GeneratedProtocolMessageType('output_m', (_message.Message,), dict(
   DESCRIPTOR = _OUTPUT_M,
   __module__ = 'deep_pb2'
-  # @@protoc_insertion_point(class_scope:org.libcppa.output_m)
+  # @@protoc_insertion_point(class_scope:deep_server.output_m)
   ))
 _sym_db.RegisterMessage(output_m)
 

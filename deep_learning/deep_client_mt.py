@@ -125,25 +125,33 @@ def do_tcp_job(args):
         import deep_pb2
         im = deep_pb2.input_m()
         im.imgdata = content
-        im.method = deep_pb2.input_m.CV_FLIP
+        im.method = deep_pb2.input_m.YOLO
         im.dataT = deep_pb2.PNG
+        im.res_dataT = deep_pb2.CV_POST_IMAGE
 
         address = (host, port)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect(address)
-        sock.setblocking(1)
+        lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        lsock.connect(address)
+        lsock.setblocking(1)
 
         sd = im.SerializeToString()
-        sock.send(struct.pack('>I',len(sd)))
-        sock.send(sd)
+        # sd = socket.htonl(len(sd))
+        lsock.send(struct.pack('>I',len(sd)))
+        lsock.send(sd)
 
-        r_size = sock.recv(4)
+        r_size = lsock.recv(4)
         r_len = struct.unpack('<I', r_size)[0]
         r_len = socket.ntohl(r_len)
-        r_msg = sock.recv(r_len)
-        # r_size = sock.recv(4)
+        buffer = ""
+        while True:
+            # r_msg = lsock.recv(r_len)
+            buffer += lsock.recv(1024)
+            if not buffer:
+                break
+            if len(buffer) >= r_len:
+                break
         om = deep_pb2.output_m()
-        om.ParseFromString(r_msg)
+        om.ParseFromString(buffer[0:r_len])
         # print(om.status())
 
         wf = open(os.path.splitext(filename)[0] + '_result.png', 'wb')
@@ -154,7 +162,7 @@ def do_tcp_job(args):
     except Exception, e:
         print(traceback.format_exc())
     finally:
-        sock.close()
+        lsock.close()
 
     print threading.current_thread(), list(args)
 
