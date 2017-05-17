@@ -27,6 +27,8 @@ class WorkManager(object):
     def __init__(self,thread_num=1, work_list=None):
         self.push_finish = False
         self.decode_finish = False
+        self.frame_index = 0
+        self.alive = True
         self.work_list = work_list
         self.work_queue = Queue.Queue()
         self.return_queue = Queue.Queue()
@@ -53,7 +55,7 @@ class WorkManager(object):
         cv2.namedWindow(win_name, cv2.WINDOW_AUTOSIZE)
         start = time.time()
 
-        while not self.decode_finish or not self.push_finish or not self.return_queue.empty():
+        while self.alive:
             try:
                 if not self.return_queue.empty():
                     start = time.time()
@@ -83,18 +85,17 @@ class WorkManager(object):
 
         cv2.namedWindow(win_name, cv2.WINDOW_AUTOSIZE)
         start = time.time()
-        frame_index = 0
         try_count = 0
         try_thres = 5
 
-        while True:
+        while self.alive:
             try:
-                if self.return_dict.has_key(frame_index):
+                if self.return_dict.has_key(self.frame_index):
                     start = time.time()
-                    frame = self.return_dict.get(frame_index)
+                    frame = self.return_dict.get(self.frame_index)
                     cv2.imshow(win_name, frame)  # 显示
-                    self.return_dict[frame_index] = None
-                    frame_index += 1
+                    self.return_dict[self.frame_index] = None
+                    self.frame_index += 1
                     try_count = 0
 
                 end = time.time()
@@ -106,6 +107,7 @@ class WorkManager(object):
                 if c == 27:
                     self.push_finish = True
                     self.decode_finish = True
+                    self.alive = False
                     while not self.work_queue.empty():
                         self.work_queue.get(block=False)
                     while not self.return_queue.empty():
@@ -116,7 +118,7 @@ class WorkManager(object):
                 print(traceback.format_exc())
                 if try_count >= try_thres:
                     try_count = 0
-                    frame_index += 1 # skip this frame
+                    self.frame_index += 1 # skip this frame
                     print("one frame is lost, skip it!")
 
         cv2.destroyWindow(win_name)
@@ -231,7 +233,7 @@ class Work_decodevideo(threading.Thread):
         self.manager.frame_time = 1000 / int(self.fps)
         index = 0
 
-        while success:
+        while success and self.manager.alive:
             try:
                 start = time.time()
                 if http_mode:
@@ -239,6 +241,11 @@ class Work_decodevideo(threading.Thread):
                 else:
                     self.manager.add_job(self.manager.deep_tcp_convert, frame, index)
                 index += 1
+
+                while index - self.manager.frame_index >= 100 and self.manager.alive:
+                    # too much frames in stack, wait for a while
+                    time.sleep(0.05)
+
                 end = time.time()
                 success, frame = capture.read()  # 获取下一帧
             except:
@@ -257,7 +264,7 @@ class Work(threading.Thread):
         skip_count = 0
 
         #死循环，从而让创建的线程在一定条件下关闭退出
-        while True:
+        while self.manager.alive:
             try:
                 callback = '0'
                 if not self.manager.work_queue.empty():
@@ -269,6 +276,11 @@ class Work(threading.Thread):
                         frame,callback = args[0], args[1]
                     skip_count += 1
                     # self.manager.return_queue.put(frame)  # 任务入队，Queue内部实现了同步机制
+
+                    while int(callback) - self.manager.frame_index >= 100 and self.manager.alive:
+                        #too much frames in stack, wait for a while
+                        time.sleep(0.05)
+
                     self.manager.return_dict[int(callback)] = frame
                     # self.manager.work_queue.task_done()#通知系统任务完成
 
