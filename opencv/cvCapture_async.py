@@ -13,15 +13,21 @@ import sys
 import socket
 import struct
 import numpy as np
+import deep_pb2
 
 http_mode = True
-host = "dm-zyp-3.tb.dl.data.autohome.com.cn"
-port = 80
-# host = "127.0.0.1"
-# port = 12345
+http_host = "dm-zyp-3.tb.dl.data.autohome.com.cn"
+http_port = 80
+tcp_host = "dm-zyp-3.service.dl.data.autohome.com.cn"
+tcp_port = 80
+# http_host = "127.0.0.1"
+# http_port = 12345
 skip_frames = 1
-req_method = "caffe"
 wait_time = 1 #s
+req_method = "caffe"
+req_dataT = deep_pb2.PNG
+need_res_dataT = deep_pb2.CV_POST_PNG
+# need_res_dataT = deep_pb2.FRCNN_RESULT
 
 class WorkManager(object):
     def __init__(self,thread_num=1, work_list=None):
@@ -133,23 +139,54 @@ class WorkManager(object):
             # data = base64.b64encode(frame)
             isok, i_data = cv2.imencode('.PNG', frame)
             data = base64.b64encode(i_data)
-            body = json.dumps({'method': req_method, 'data': data, 'callback': callback})
+            body = json.dumps({'method': req_method, 'data': data, 'callback': callback, 'res_dataT' : need_res_dataT})
             headers = {"Content-type": "application/x-www-form-urlencoded"
                 , "Accept": "text/plain", 'Connection':'close'}
 
-            httpClient = httplib.HTTPConnection(host, port, timeout=30)
-            url = "http://" + host + ":" + str(port)
-            httpClient.request("POST", url, body, headers)
+            httpClient = httplib.HTTPConnection(http_host, http_port, timeout=30)
+            url = "http://" + http_host + ":" + str(http_port)
 
+            start = time.time()
+            httpClient.request("POST", url, body, headers)
             response = httpClient.getresponse()
+            end = time.time()
+            # print "server response cost time: %s" % (end - start)
 
             resjson = json.loads(response.read())
             if type(resjson) == dict:
                 if resjson['status'] == 200:
-                    resFrame = base64.b64decode(resjson['data'])
-                    npImage = np.fromstring(resFrame, np.uint8)
-                    frame = cv2.imdecode(npImage, 1)
-                    return frame, resjson['callback']
+                    print("process " + req_method
+                          + " whole time : " + str(resjson["whole_time"])
+                          + ", predict time : " + str(resjson["predict_time"])
+                          + ", prepare time : " + str(resjson["prepare_time"])
+                          + ", preprocess time : " + str(resjson["preprocess_time"])
+                          + ", postprocess time : " + str(resjson["postprocess_time"])
+                          )
+                    resFrame = None
+
+                    res_dataT = resjson["dataT"]
+
+                    if res_dataT == deep_pb2.CV_POST_PNG:
+                        resFrame = base64.b64decode(resjson['data'])
+                        npImage = np.fromstring(resFrame, np.uint8)
+                        resFrame = cv2.imdecode(npImage, 1)
+                    elif res_dataT == deep_pb2.CV_POST_IMAGE:
+                        resFrame = resjson['data'].tobytes()
+                    elif res_dataT == deep_pb2.FRCNN_RESULT:
+                        caffe_result = resjson["caffe_result"]
+                        for i in range(len(caffe_result)):
+                            cc = caffe_result[i]
+                            text = str(cc["score"])
+                            x = int(cc["x"])
+                            y = int(cc["y"])
+                            w = int(cc["w"])
+                            h = int(cc["h"])
+                            font = cv2.FONT_HERSHEY_SIMPLEX
+                            resFrame = cv2.putText(frame, text, (x,y), font, 0.6,(255,0,0), 1,cv2.LINE_AA)
+                            resFrame = cv2.rectangle(resFrame, (x, y), (w,h), (0, 0, 255), 2)
+                    elif res_dataT == deep_pb2.YOLO_RESULT:
+                        resFrame = frame
+                    return resFrame, resjson['callback']
 
         except:
             print(traceback.format_exc())
@@ -161,17 +198,18 @@ class WorkManager(object):
         frame = paras[0]
         index = paras[1]
         try:
-            import deep_pb2
             im = deep_pb2.input_m()
             im.callback = str(index)
-            isok, i_data = cv2.imencode('.PNG', frame)
-            if isok:
-                npImage = np.fromstring(i_data, np.uint8)
-                im.imgdata = npImage.tobytes()
-                im.dataT = deep_pb2.PNG
-            else:
-                im.imgdata = frame.tobytes()
-                im.dataT = deep_pb2.CV_IMAGE
+            im.dataT = req_dataT
+            if req_dataT == deep_pb2.PNG:
+                isok, i_data = cv2.imencode('.PNG', frame)
+                if isok:
+                    npImage = np.fromstring(i_data, np.uint8)
+                    im.imgdata = npImage.tobytes()
+                else:
+                    im.imgdata = frame.tobytes()
+                    im.dataT = deep_pb2.CV_IMAGE
+
             if req_method == "yolo":
                 im.method = deep_pb2.input_m.YOLO
             elif req_method == "caffe":
@@ -179,9 +217,9 @@ class WorkManager(object):
             else:
                 im.method = deep_pb2.input_m.CV_FLIP
 
-            im.res_dataT = deep_pb2.CV_POST_PNG
+            im.res_dataT = need_res_dataT
 
-            address = (host, port)
+            address = (tcp_host, tcp_port)
             lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             lsock.connect(address)
             lsock.setblocking(1)
@@ -205,9 +243,20 @@ class WorkManager(object):
             om = deep_pb2.output_m()
             om.ParseFromString(buffer[0:r_len])
 
-            npImage = np.fromstring(om.imgdata, np.uint8)
-            frame = cv2.imdecode(npImage, 1)
-            return frame, om.callback
+            res_dataT = om.dataT
+
+            resFrame = None
+            if res_dataT == deep_pb2.CV_POST_PNG:
+                npImage = np.fromstring(om.imgdata, np.uint8)
+                resFrame = cv2.imdecode(npImage, 1)
+            elif res_dataT == deep_pb2.CV_POST_IMG:
+                resFrame = np.fromstring(om.imgdata, np.uint8)
+            elif res_dataT == deep_pb2.FRCNN_RESULT:
+                resFrame = frame
+            elif res_dataT == deep_pb2.YOLO_RESULT:
+                resFrame = frame
+
+            return resFrame, om.callback
 
         except:
             print(traceback.format_exc())
