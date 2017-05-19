@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='deep.proto',
   package='deep_server',
   syntax='proto2',
-  serialized_pb=_b('\n\ndeep.proto\x12\x0b\x64\x65\x65p_server\">\n\ninput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x14.deep_server.input_m\"@\n\x0boutput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12#\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x15.deep_server.output_m\"\xca\x01\n\x0c\x63onsume_time\x12\x12\n\nwhole_time\x18\x01 \x01(\x02\x12\x13\n\x0b\x64\x65\x63ode_time\x18\x02 \x01(\x02\x12\x18\n\x10\x63vreadimage_time\x18\x03 \x01(\x02\x12\x14\n\x0cprepare_time\x18\x04 \x01(\x02\x12\x17\n\x0fpreprocess_time\x18\x05 \x01(\x02\x12\x14\n\x0cpredict_time\x18\x06 \x01(\x02\x12\x18\n\x10postprocess_time\x18\x07 \x01(\x02\x12\x18\n\x10writeresult_time\x18\x08 \x01(\x02\"\x91\x02\n\x07input_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x36\n\x06method\x18\x03 \x01(\x0e\x32\x1f.deep_server.input_m.methodType:\x05\x43\x41\x46\x46\x45\x12.\n\x05\x64\x61taT\x18\x04 \x01(\x0e\x32\x15.deep_server.dataType:\x08\x43V_IMAGE\x12-\n\tres_dataT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t\".\n\nmethodType\x12\x0b\n\x07\x43V_FLIP\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\x08\n\x04YOLO\x10\x02\"X\n\x0c\x43\x61\x66\x66\x65_result\x12\r\n\x05\x63lass\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x02\x12\t\n\x01x\x18\x03 \x01(\x02\x12\t\n\x01y\x18\x04 \x01(\x02\x12\t\n\x01w\x18\x05 \x01(\x02\x12\t\n\x01h\x18\x06 \x01(\x02\"f\n\x0bYolo_result\x12\r\n\x05\x63lass\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x02\x12\t\n\x01x\x18\x03 \x01(\x02\x12\t\n\x01y\x18\x04 \x01(\x02\x12\t\n\x01w\x18\x05 \x01(\x02\x12\t\n\x01h\x18\x06 \x01(\x02\x12\r\n\x05label\x18\x07 \x01(\t\"\xb1\x02\n\x08output_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12#\n\x06status\x18\x02 \x01(\x0e\x32\x13.deep_server.Status\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\x0f\n\x07version\x18\x04 \x01(\t\x12)\n\x05\x64\x61taT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t\x12\'\n\x04time\x18\x08 \x01(\x0b\x32\x19.deep_server.consume_time\x12/\n\x0c\x63\x61\x66\x66\x65_result\x18\t \x03(\x0b\x32\x19.deep_server.Caffe_result\x12-\n\x0byolo_result\x18\n \x03(\x0b\x32\x18.deep_server.Yolo_result*}\n\x08\x64\x61taType\x12\x07\n\x03PNG\x10\x00\x12\x0c\n\x08\x43V_IMAGE\x10\x01\x12\x0f\n\x0b\x43V_POST_PNG\x10\x03\x12\x11\n\rCV_POST_IMAGE\x10\x04\x12\x10\n\x0c\x46RCNN_RESULT\x10\x05\x12\x0f\n\x0bYOLO_RESULT\x10\x06\x12\x13\n\x0fINVALID_OUTDATA\x10\x07*e\n\x06Status\x12\x06\n\x02OK\x10\x00\x12\x0b\n\x07INVALID\x10\x01\x12\x10\n\x0cWRONG_METHOD\x10\x02\x12\x12\n\x0eWRONG_DATATYPE\x10\x03\x12\x10\n\x0cTOO_BIG_DATA\x10\x04\x12\x0e\n\nSEVER_FAIL\x10\x05')
+  serialized_pb=_b('\n\ndeep.proto\x12\x0b\x64\x65\x65p_server\">\n\ninput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x14.deep_server.input_m\"@\n\x0boutput_pack\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12#\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x15.deep_server.output_m\"\xca\x01\n\x0c\x63onsume_time\x12\x12\n\nwhole_time\x18\x01 \x01(\x02\x12\x13\n\x0b\x64\x65\x63ode_time\x18\x02 \x01(\x02\x12\x18\n\x10\x63vreadimage_time\x18\x03 \x01(\x02\x12\x14\n\x0cprepare_time\x18\x04 \x01(\x02\x12\x17\n\x0fpreprocess_time\x18\x05 \x01(\x02\x12\x14\n\x0cpredict_time\x18\x06 \x01(\x02\x12\x18\n\x10postprocess_time\x18\x07 \x01(\x02\x12\x18\n\x10writeresult_time\x18\x08 \x01(\x02\"\x91\x02\n\x07input_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x36\n\x06method\x18\x03 \x01(\x0e\x32\x1f.deep_server.input_m.methodType:\x05\x43\x41\x46\x46\x45\x12.\n\x05\x64\x61taT\x18\x04 \x01(\x0e\x32\x15.deep_server.dataType:\x08\x43V_IMAGE\x12-\n\tres_dataT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t\".\n\nmethodType\x12\x0b\n\x07\x43V_FLIP\x10\x00\x12\t\n\x05\x43\x41\x46\x46\x45\x10\x01\x12\x08\n\x04YOLO\x10\x02\"X\n\x0c\x43\x61\x66\x66\x65_result\x12\r\n\x05\x63lass\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x02\x12\t\n\x01x\x18\x03 \x01(\x02\x12\t\n\x01y\x18\x04 \x01(\x02\x12\t\n\x01w\x18\x05 \x01(\x02\x12\t\n\x01h\x18\x06 \x01(\x02\"f\n\x0bYolo_result\x12\r\n\x05\x63lass\x18\x01 \x01(\x05\x12\r\n\x05score\x18\x02 \x01(\x02\x12\t\n\x01x\x18\x03 \x01(\x02\x12\t\n\x01y\x18\x04 \x01(\x02\x12\t\n\x01w\x18\x05 \x01(\x02\x12\t\n\x01h\x18\x06 \x01(\x02\x12\r\n\x05label\x18\x07 \x01(\t\":\n\x08Img_info\x12\r\n\x05width\x18\x01 \x01(\x05\x12\x0e\n\x06height\x18\x02 \x01(\x05\x12\x0f\n\x07\x63hannel\x18\x03 \x01(\x05\"\xd6\x02\n\x08output_m\x12\x0b\n\x03\x63id\x18\x01 \x01(\x05\x12#\n\x06status\x18\x02 \x01(\x0e\x32\x13.deep_server.Status\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\x0f\n\x07version\x18\x04 \x01(\t\x12)\n\x05\x64\x61taT\x18\x05 \x01(\x0e\x32\x15.deep_server.dataType:\x03PNG\x12\x0f\n\x07imgdata\x18\x06 \x01(\x0c\x12\x10\n\x08\x63\x61llback\x18\x07 \x01(\t\x12\'\n\x04time\x18\x08 \x01(\x0b\x32\x19.deep_server.consume_time\x12/\n\x0c\x63\x61\x66\x66\x65_result\x18\t \x03(\x0b\x32\x19.deep_server.Caffe_result\x12-\n\x0byolo_result\x18\n \x03(\x0b\x32\x18.deep_server.Yolo_result\x12#\n\x04info\x18\x0b \x01(\x0b\x32\x15.deep_server.Img_info*}\n\x08\x64\x61taType\x12\x07\n\x03PNG\x10\x00\x12\x0c\n\x08\x43V_IMAGE\x10\x01\x12\x0f\n\x0b\x43V_POST_PNG\x10\x03\x12\x11\n\rCV_POST_IMAGE\x10\x04\x12\x10\n\x0c\x46RCNN_RESULT\x10\x05\x12\x0f\n\x0bYOLO_RESULT\x10\x06\x12\x13\n\x0fINVALID_OUTDATA\x10\x07*e\n\x06Status\x12\x06\n\x02OK\x10\x00\x12\x0b\n\x07INVALID\x10\x01\x12\x10\n\x0cWRONG_METHOD\x10\x02\x12\x12\n\x0eWRONG_DATATYPE\x10\x03\x12\x10\n\x0cTOO_BIG_DATA\x10\x04\x12\x0e\n\nSEVER_FAIL\x10\x05')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -61,8 +61,8 @@ _DATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1140,
-  serialized_end=1265,
+  serialized_start=1237,
+  serialized_end=1362,
 )
 _sym_db.RegisterEnumDescriptor(_DATATYPE)
 
@@ -100,8 +100,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1267,
-  serialized_end=1368,
+  serialized_start=1364,
+  serialized_end=1465,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -517,6 +517,51 @@ _YOLO_RESULT = _descriptor.Descriptor(
 )
 
 
+_IMG_INFO = _descriptor.Descriptor(
+  name='Img_info',
+  full_name='deep_server.Img_info',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='width', full_name='deep_server.Img_info.width', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='deep_server.Img_info.height', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='channel', full_name='deep_server.Img_info.channel', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=832,
+  serialized_end=890,
+)
+
+
 _OUTPUT_M = _descriptor.Descriptor(
   name='output_m',
   full_name='deep_server.output_m',
@@ -594,6 +639,13 @@ _OUTPUT_M = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='deep_server.output_m.info', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -606,8 +658,8 @@ _OUTPUT_M = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=833,
-  serialized_end=1138,
+  serialized_start=893,
+  serialized_end=1235,
 )
 
 _INPUT_PACK.fields_by_name['data'].message_type = _INPUT_M
@@ -621,12 +673,14 @@ _OUTPUT_M.fields_by_name['dataT'].enum_type = _DATATYPE
 _OUTPUT_M.fields_by_name['time'].message_type = _CONSUME_TIME
 _OUTPUT_M.fields_by_name['caffe_result'].message_type = _CAFFE_RESULT
 _OUTPUT_M.fields_by_name['yolo_result'].message_type = _YOLO_RESULT
+_OUTPUT_M.fields_by_name['info'].message_type = _IMG_INFO
 DESCRIPTOR.message_types_by_name['input_pack'] = _INPUT_PACK
 DESCRIPTOR.message_types_by_name['output_pack'] = _OUTPUT_PACK
 DESCRIPTOR.message_types_by_name['consume_time'] = _CONSUME_TIME
 DESCRIPTOR.message_types_by_name['input_m'] = _INPUT_M
 DESCRIPTOR.message_types_by_name['Caffe_result'] = _CAFFE_RESULT
 DESCRIPTOR.message_types_by_name['Yolo_result'] = _YOLO_RESULT
+DESCRIPTOR.message_types_by_name['Img_info'] = _IMG_INFO
 DESCRIPTOR.message_types_by_name['output_m'] = _OUTPUT_M
 DESCRIPTOR.enum_types_by_name['dataType'] = _DATATYPE
 DESCRIPTOR.enum_types_by_name['Status'] = _STATUS
@@ -672,6 +726,13 @@ Yolo_result = _reflection.GeneratedProtocolMessageType('Yolo_result', (_message.
   # @@protoc_insertion_point(class_scope:deep_server.Yolo_result)
   ))
 _sym_db.RegisterMessage(Yolo_result)
+
+Img_info = _reflection.GeneratedProtocolMessageType('Img_info', (_message.Message,), dict(
+  DESCRIPTOR = _IMG_INFO,
+  __module__ = 'deep_pb2'
+  # @@protoc_insertion_point(class_scope:deep_server.Img_info)
+  ))
+_sym_db.RegisterMessage(Img_info)
 
 output_m = _reflection.GeneratedProtocolMessageType('output_m', (_message.Message,), dict(
   DESCRIPTOR = _OUTPUT_M,

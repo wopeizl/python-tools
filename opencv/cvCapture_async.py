@@ -16,6 +16,7 @@ import numpy as np
 import deep_pb2
 
 http_mode = True
+save_mpg = False
 http_host = "dm-zyp-3.tb.dl.data.autohome.com.cn"
 http_port = 80
 tcp_host = "dm-zyp-3.service.dl.data.autohome.com.cn"
@@ -93,6 +94,8 @@ class WorkManager(object):
         start = time.time()
         try_count = 0
         try_thres = 5
+        if save_mpg:
+            videoWriter = cv2.VideoWriter("./output.mpg", cv2.VideoWriter_fourcc('m','p','4','v'), self.fps, self.size)
 
         while self.alive:
             try:
@@ -103,9 +106,12 @@ class WorkManager(object):
                     self.return_dict[self.frame_index] = None
                     self.frame_index += 1
                     try_count = 0
+                    if save_mpg:
+                        videoWriter.write(frame)  # 写视频帧
 
                 end = time.time()
                 leave_time = self.frame_time - (end * 1000 - start * 1000)
+                leave_time = 1
                 if leave_time <= 0.0:
                     leave_time = 1
                 # print(leave_time)
@@ -156,7 +162,10 @@ class WorkManager(object):
             if type(resjson) == dict:
                 if resjson['status'] == 200:
                     print("process " + req_method
-                          + " whole time : " + str(resjson["whole_time"])
+                          + " width : " + str(resjson["width"])
+                          + ", height : " + str(resjson["height"])
+                          + ", channel : " + str(resjson["channel"])
+                          + ", whole time : " + str(resjson["whole_time"])
                           + ", predict time : " + str(resjson["predict_time"])
                           + ", prepare time : " + str(resjson["prepare_time"])
                           + ", preprocess time : " + str(resjson["preprocess_time"])
@@ -274,12 +283,12 @@ class Work_decodevideo(threading.Thread):
         # 获得视频的格式
         capture = cv2.VideoCapture(self.manager.work_list)
         # 获得码率及尺寸
-        self.fps = capture.get(cv2.CAP_PROP_FPS)
-        self.size = (int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)),
+        self.manager.fps = capture.get(cv2.CAP_PROP_FPS)
+        self.manager.size = (int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)),
                 int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
 
         success, frame = capture.read()
-        self.manager.frame_time = 1000 / int(self.fps)
+        self.manager.frame_time = 1000 / int(self.manager.fps)
         index = 0
 
         while success and self.manager.alive:
