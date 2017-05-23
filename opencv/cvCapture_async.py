@@ -19,16 +19,16 @@ http_mode = True
 save_mpg = False
 http_host = "dm-zyp-3.tb.dl.data.autohome.com.cn"
 http_port = 80
-tcp_host = "dm-zyp-3.service.dl.data.autohome.com.cn"
-tcp_port = 80
+tcp_host = "10.22.245.0"
+tcp_port = 30005
 # http_host = "127.0.0.1"
 # http_port = 12345
 skip_frames = 1
 wait_time = 1 #s
 req_method = "caffe"
 req_dataT = deep_pb2.PNG
-need_res_dataT = deep_pb2.CV_POST_PNG
-# need_res_dataT = deep_pb2.FRCNN_RESULT
+# need_res_dataT = deep_pb2.CV_POST_PNG
+need_res_dataT = deep_pb2.FRCNN_RESULT
 
 class WorkManager(object):
     def __init__(self,thread_num=1, work_list=None):
@@ -111,7 +111,6 @@ class WorkManager(object):
 
                 end = time.time()
                 leave_time = self.frame_time - (end * 1000 - start * 1000)
-                leave_time = 1
                 if leave_time <= 0.0:
                     leave_time = 1
                 # print(leave_time)
@@ -355,7 +354,7 @@ if __name__ == '__main__':
     # avi2mp4("C:/Users/Administrator/Videos/2.avi",
     #         "C:/Users/Administrator/Videos/test.mpg")
     if len(sys.argv) < 1:
-        print("usage : cvCapture.py movie_file!")
+        print("usage : cvCapture_async.py movie_file!")
         sys.exit(1)
 
     path = sys.argv[1]
